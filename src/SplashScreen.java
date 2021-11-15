@@ -7,7 +7,7 @@ public class SplashScreen {
 	 JFrame frame;
     JLabel image=new JLabel(new ImageIcon("img/icon.png"));
     JLabel text=new JLabel("PASSWORD MANAGER");
-    JLabel text2=new JLabel("Developer: Noor Ahmed Shaikh (19SW24)");
+    JLabel text2=new JLabel("By Barun Debnath - 19BEC022");
     JProgressBar progressBar=new JProgressBar();
     JLabel message=new JLabel();   //Creating a JLabel for displaying the message
 	
