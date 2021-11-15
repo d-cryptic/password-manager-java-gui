@@ -86,7 +86,7 @@ public class PasswordManager implements ActionListener {
     }
     
     // for password generator and encryption 
-    public void textArea(String Pass,JTextArea TA){
+    public void textArea(String Pass, JTextArea TA) {
         TA.setText(Pass);
         Font fn = new Font("Arial", Font.BOLD, 20);
         TA.setWrapStyleWord(true);
@@ -95,5 +95,51 @@ public class PasswordManager implements ActionListener {
         TA.setEditable(false);
         TA.setFont(fn);
     }
+    
+    PasswordManager() {
+        frame = new JFrame("Password Manager");
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png"));
+//        frame.setBounds(300, 100, 700, 800);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(580,630);
+        FrameGUI(frame);
+
+        conn1 = frame.getContentPane();
+        ContainerGUI(conn1);
+
+
+        //Generator buttons settings
+        PassGeneBtn = new JButton("GENERATE PASSWORD");
+        PassGeneBtn.setBounds(160, 80, 220, 70);
+        conn1.add(PassGeneBtn);
+        GUIButtonsSetting(PassGeneBtn);
+
+
+        // generating password 
+        PassGeneBtn.addActionListener(e -> {
+        if(PassGeneBtn ==e.getSource())
+        {
+            try{
+                int len = Integer.parseInt(JOptionPane.showInputDialog("Enter the password length"));
+                if(len>8)
+                {
+                    //  password generator class reference
+                    PasswordGenerator pass = new PasswordGenerator();
+                    String passwd = pass.generatePassword(len);
+                    genePassArea = new JTextArea(5,4);
+                    textArea(passwd,genePassArea);
+                    JOptionPane.showMessageDialog(conn1,new JScrollPane(genePassArea),"Copy your password",JOptionPane.INFORMATION_MESSAGE);
+
+                }
+                else JOptionPane.showMessageDialog (conn1,"Password length must be greater than 8!","Invalid Input Error",JOptionPane.WARNING_MESSAGE);
+
+            }
+            catch(Exception ex){JOptionPane.showMessageDialog(conn1,ex.getMessage(),"EXIT!",JOptionPane.ERROR_MESSAGE);}
+        }
+
+    }
+    );
+
+    
 
 }
