@@ -202,5 +202,32 @@ public class PasswordManager implements ActionListener {
         );
 
 
+        // searching password 
+        PassSearchBtn = new JButton("SEARCH PASSWORD");
+        GUIButtonsSetting(PassSearchBtn);
+        PassSearchBtn.setBounds(160, 380, 220, 70);
+        conn1.add(PassSearchBtn);
+        PassSearchBtn.addActionListener(e ->{
+            if (PassSearchBtn ==e.getSource()){
+                try{
+                    String acc_name = JOptionPane.showInputDialog("Enter your Account Name");
+                    if (!acc_name.isBlank()) {
+                        Object pass = data.get_Acc(acc_name.toLowerCase());
+                        if(pass!=null) {
+                            searchPassArea = new JTextArea(4,5);
+                            textArea(String.valueOf(pass), searchPassArea);
+                            JOptionPane.showMessageDialog(conn1, new JScrollPane(searchPassArea), "Copy your password", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        else JOptionPane.showMessageDialog(conn1, "Account not Found!");
+                    }
+                }
+                catch (Exception ex){
+                    JOptionPane.showMessageDialog(conn1,ex.getMessage(),"EXIT",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        );
+
+
         
 }
