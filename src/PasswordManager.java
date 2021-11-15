@@ -35,7 +35,7 @@ public class PasswordManager implements ActionListener {
     }
 
     // buttons settings
-    public void GUIButtonSetting(JButton btn) {
+    public void GUIButtonsSetting(JButton btn) {
         btn.setBackground(Color.LIGHT_GRAY);
         btn.setForeground(Color.BLACK);
         Font fn = new Font("Arial", Font.PLAIN, 15);
@@ -99,14 +99,13 @@ public class PasswordManager implements ActionListener {
     PasswordManager() {
         frame = new JFrame("Password Manager");
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("img/icon.png"));
-//        frame.setBounds(300, 100, 700, 800);
+        //        frame.setBounds(300, 100, 700, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(580,630);
+        frame.setSize(580, 630);
         FrameGUI(frame);
 
         conn1 = frame.getContentPane();
         ContainerGUI(conn1);
-
 
         //Generator buttons settings
         PassGeneBtn = new JButton("GENERATE PASSWORD");
@@ -114,55 +113,55 @@ public class PasswordManager implements ActionListener {
         conn1.add(PassGeneBtn);
         GUIButtonsSetting(PassGeneBtn);
 
-
         // generating password 
         PassGeneBtn.addActionListener(e -> {
-        if(PassGeneBtn ==e.getSource())
-        {
-            try{
-                int len = Integer.parseInt(JOptionPane.showInputDialog("Enter the password length"));
-                if(len>8)
-                {
-                    //  password generator class reference
-                    PasswordGenerator pass = new PasswordGenerator();
-                    String passwd = pass.generatePassword(len);
-                    genePassArea = new JTextArea(5,4);
-                    textArea(passwd,genePassArea);
-                    JOptionPane.showMessageDialog(conn1,new JScrollPane(genePassArea),"Copy your password",JOptionPane.INFORMATION_MESSAGE);
+            if (PassGeneBtn == e.getSource()) {
+                try {
+                    int len = Integer.parseInt(JOptionPane.showInputDialog("Enter the password length"));
+                    if (len > 8) {
+                        //  password generator class reference
+                        PasswordGenerator pass = new PasswordGenerator();
+                        String passwd = pass.generatePassword(len);
+                        genePassArea = new JTextArea(5, 4);
+                        textArea(passwd, genePassArea);
+                        JOptionPane.showMessageDialog(conn1, new JScrollPane(genePassArea), "Copy your password",
+                                JOptionPane.INFORMATION_MESSAGE);
 
+                    } else
+                        JOptionPane.showMessageDialog(conn1, "Password length must be greater than 8!",
+                                "Invalid Input Error", JOptionPane.WARNING_MESSAGE);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(conn1, ex.getMessage(), "EXIT!", JOptionPane.ERROR_MESSAGE);
                 }
-                else JOptionPane.showMessageDialog (conn1,"Password length must be greater than 8!","Invalid Input Error",JOptionPane.WARNING_MESSAGE);
-
             }
-            catch(Exception ex){JOptionPane.showMessageDialog(conn1,ex.getMessage(),"EXIT!",JOptionPane.ERROR_MESSAGE);}
-        }
 
-    }
-    );
+        });
 
-    //Encryption password
-    PassEncryptBtn = new JButton("ENCRYPT PASSWORD");
+        //Encryption password
+        PassEncryptBtn = new JButton("ENCRYPT PASSWORD");
         GUIButtonsSetting(PassEncryptBtn);
         PassEncryptBtn.setBounds(160, 180, 220, 70);
         conn1.add(PassEncryptBtn);
         PassEncryptBtn.addActionListener(e -> {
-                    if (PassEncryptBtn == e.getSource()) {
-                        try {
-                            String simplePasswd = JOptionPane.showInputDialog("Enter your Password");
-                            if (!simplePasswd.isEmpty()) {
-                                byte[] salt = passwordEncryption.getSalt();
-                                String encPass = passwordEncryption.get_SHA_1_SecurePassword(simplePasswd, salt);
-                                //txtArea adding in the panel
-                                encryptPasswdArea = new JTextArea(7, 4);
-                                textArea(encPass, encryptPasswdArea);
-                                JOptionPane.showMessageDialog(conn1, new JScrollPane(encryptPasswdArea), "Copy your Encrypted password", JOptionPane.INFORMATION_MESSAGE);
-                            } else JOptionPane.showMessageDialog(conn1, "Please enter password!");
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(conn1, ex.getMessage(), "EXIT", JOptionPane.ERROR_MESSAGE);
-                        }
-                    }
+            if (PassEncryptBtn == e.getSource()) {
+                try {
+                    String simplePasswd = JOptionPane.showInputDialog("Enter your Password");
+                    if (!simplePasswd.isEmpty()) {
+                        byte[] salt = PasswordEncryption.getSalt();
+                        String encPass = PasswordEncryption.get_SHA_1_SecurePassword(simplePasswd, salt);
+                        //txtArea adding in the panel
+                        encryptPasswdArea = new JTextArea(7, 4);
+                        textArea(encPass, encryptPasswdArea);
+                        JOptionPane.showMessageDialog(conn1, new JScrollPane(encryptPasswdArea),
+                                "Copy your Encrypted password", JOptionPane.INFORMATION_MESSAGE);
+                    } else
+                        JOptionPane.showMessageDialog(conn1, "Please enter password!");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(conn1, ex.getMessage(), "EXIT", JOptionPane.ERROR_MESSAGE);
                 }
-        );
+            }
+        });
 
         // Storing password using hashtable 
         PassStoreBtn = new JButton("STORE PASSWORD");
@@ -170,12 +169,10 @@ public class PasswordManager implements ActionListener {
         conn1.add(PassStoreBtn);
         GUIButtonsSetting(PassStoreBtn);
 
-
         // Store password action 
         PassStoreBtn.addActionListener(e -> {
-            if(PassStoreBtn ==e.getSource())
-            {
-                try{
+            if (PassStoreBtn == e.getSource()) {
+                try {
                     StoringGUI();
                     // action on the Store btn
                     AccAddBtn.addActionListener(e4 -> {
@@ -183,52 +180,48 @@ public class PasswordManager implements ActionListener {
                             String account_name = tAcc.getText();
                             String acc_pass = tPass.getText();
                             if (account_name.isEmpty() && acc_pass.isEmpty()) {
-                                JOptionPane.showMessageDialog(conn2,"unable to store your password!","ERROR",JOptionPane.ERROR_MESSAGE);
-                            }
-                            else{
+                                JOptionPane.showMessageDialog(conn2, "unable to store your password!", "ERROR",
+                                        JOptionPane.ERROR_MESSAGE);
+                            } else {
                                 //calling put method of the hashtablePassword class
-                                data.add_Acc(account_name,acc_pass);
+                                data.add_Acc(account_name, acc_pass);
                                 JOptionPane.showMessageDialog(conn2, "Account added Successfully !");
                                 tAcc.setText(null);
                                 tPass.setText(null);
                             }
                         }
-                      }
-                    );
+                    });
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(conn2, ex.getMessage(), "EXIT", JOptionPane.ERROR_MESSAGE);
                 }
-           catch(Exception ex) {JOptionPane.showMessageDialog(conn2,ex.getMessage(),"EXIT",JOptionPane.ERROR_MESSAGE);}
             }
-        }
-        );
-
+        });
 
         // searching password 
         PassSearchBtn = new JButton("SEARCH PASSWORD");
         GUIButtonsSetting(PassSearchBtn);
         PassSearchBtn.setBounds(160, 380, 220, 70);
         conn1.add(PassSearchBtn);
-        PassSearchBtn.addActionListener(e ->{
-            if (PassSearchBtn ==e.getSource()){
-                try{
+        PassSearchBtn.addActionListener(e -> {
+            if (PassSearchBtn == e.getSource()) {
+                try {
                     String acc_name = JOptionPane.showInputDialog("Enter your Account Name");
                     if (!acc_name.isBlank()) {
                         Object pass = data.get_Acc(acc_name.toLowerCase());
-                        if(pass!=null) {
-                            searchPassArea = new JTextArea(4,5);
+                        if (pass != null) {
+                            searchPassArea = new JTextArea(4, 5);
                             textArea(String.valueOf(pass), searchPassArea);
-                            JOptionPane.showMessageDialog(conn1, new JScrollPane(searchPassArea), "Copy your password", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                        else JOptionPane.showMessageDialog(conn1, "Account not Found!");
+                            JOptionPane.showMessageDialog(conn1, new JScrollPane(searchPassArea), "Copy your password",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        } else
+                            JOptionPane.showMessageDialog(conn1, "Account not Found!");
                     }
-                }
-                catch (Exception ex){
-                    JOptionPane.showMessageDialog(conn1,ex.getMessage(),"EXIT",JOptionPane.ERROR_MESSAGE);
-                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(conn1, ex.getMessage(), "EXIT", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        );
+        });
 
-        
         // deleting password
         PassDeleteBtn = new JButton("DELETE PASSWORD");
         GUIButtonsSetting(PassDeleteBtn);
@@ -241,15 +234,16 @@ public class PasswordManager implements ActionListener {
                     if (!acc_name.isBlank()) {
                         data.remove_Acc(acc_name.toLowerCase());
                         JOptionPane.showMessageDialog(conn1, "Delete successfully!");
-                    }
-                    else JOptionPane.showMessageDialog(conn1, "Account not found!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    } else
+                        JOptionPane.showMessageDialog(conn1, "Account not found!", "INFO",
+                                JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(conn1, ex.getMessage(), "EXIT", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
-        }
-        );
+        });
 
+    }
 
 }
