@@ -228,6 +228,28 @@ public class PasswordManager implements ActionListener {
             }
         );
 
-
         
+        // deleting password
+        PassDeleteBtn = new JButton("DELETE PASSWORD");
+        GUIButtonsSetting(PassDeleteBtn);
+        PassDeleteBtn.setBounds(160, 480, 220, 70);
+        conn1.add(PassDeleteBtn);
+        PassDeleteBtn.addActionListener(e -> {
+            if (PassDeleteBtn == e.getSource()) {
+                try {
+                    String acc_name = JOptionPane.showInputDialog("Enter the Account Name");
+                    if (!acc_name.isBlank()) {
+                        data.remove_Acc(acc_name.toLowerCase());
+                        JOptionPane.showMessageDialog(conn1, "Delete successfully!");
+                    }
+                    else JOptionPane.showMessageDialog(conn1, "Account not found!", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(conn1, ex.getMessage(), "EXIT", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        }
+        );
+
+
 }
