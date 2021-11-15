@@ -48,7 +48,7 @@ public class PasswordManager implements ActionListener {
     public void StoringGUI() {
         frame2 = new JFrame("Store your passwords");
         frame2.setBounds(1400, 700, 600, 500);
-        frame2.setSize(500,400);
+        frame2.setSize(500, 400);
         FrameGUI(frame2);
         conn2 = frame2.getContentPane();
         ContainerGUI(conn2);
@@ -60,12 +60,40 @@ public class PasswordManager implements ActionListener {
         lAcc.setFont(fn);
         conn2.add(lAcc);
 
-         tAcc = new JTextField();
-        tAcc.setBounds(100,70,300,80);
+        tAcc = new JTextField();
+        tAcc.setBounds(100, 70, 300, 80);
         tAcc.setFont(fn);
         tAcc.setForeground(Color.DARK_GRAY);
         conn2.add(tAcc);
 
+        //Account password textField and label
+        lPass = new JLabel("ENTER ACCOUNT PASSWORD");
+        lPass.setBounds(100, 160, 480, 50);
+        lPass.setFont(fn);
+        conn2.add(lPass);
+
+        tPass = new JTextField();
+        tPass.setBounds(100, 200, 300, 80);
+        tPass.setFont(fn);
+        tPass.setForeground(Color.DARK_GRAY);
+        conn2.add(tPass);
+
+        AccAddBtn = new JButton("STORE");
+        AccAddBtn.setBounds(170, 290, 150, 50);
+        conn2.add(AccAddBtn);
+        GUIButtonsSetting(AccAddBtn);
+
+    }
+    
+    // for password generator and encryption 
+    public void textArea(String Pass,JTextArea TA){
+        TA.setText(Pass);
+        Font fn = new Font("Arial", Font.BOLD, 20);
+        TA.setWrapStyleWord(true);
+        TA.setLineWrap(true);
+        TA.setCaretPosition(0);
+        TA.setEditable(false);
+        TA.setFont(fn);
     }
 
 }
