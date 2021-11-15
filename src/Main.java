@@ -1,3 +1,4 @@
+import javax.swing.UIManager;
 
 // Main method 
 
@@ -9,7 +10,7 @@ public class Main {
 		try{
 			UIManager.setLookAndFeel("com.jtattoo.plaf.mint.MintLookAndFeel");
 		} catch (Exception e) {
-			ex.printStackTrace();
+			e.printStackTrace();
 		}
 	}	
 }
