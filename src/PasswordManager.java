@@ -164,4 +164,43 @@ public class PasswordManager implements ActionListener {
                 }
         );
 
+        // Storing password using hashtable 
+        PassStoreBtn = new JButton("STORE PASSWORD");
+        PassStoreBtn.setBounds(160, 280, 220, 70);
+        conn1.add(PassStoreBtn);
+        GUIButtonsSetting(PassStoreBtn);
+
+
+        // Store password action 
+        PassStoreBtn.addActionListener(e -> {
+            if(PassStoreBtn ==e.getSource())
+            {
+                try{
+                    StoringGUI();
+                    // action on the Store btn
+                    AccAddBtn.addActionListener(e4 -> {
+                        if (AccAddBtn == e4.getSource()) {
+                            String account_name = tAcc.getText();
+                            String acc_pass = tPass.getText();
+                            if (account_name.isEmpty() && acc_pass.isEmpty()) {
+                                JOptionPane.showMessageDialog(conn2,"unable to store your password!","ERROR",JOptionPane.ERROR_MESSAGE);
+                            }
+                            else{
+                                //calling put method of the hashtablePassword class
+                                data.add_Acc(account_name,acc_pass);
+                                JOptionPane.showMessageDialog(conn2, "Account added Successfully !");
+                                tAcc.setText(null);
+                                tPass.setText(null);
+                            }
+                        }
+                      }
+                    );
+                }
+           catch(Exception ex) {JOptionPane.showMessageDialog(conn2,ex.getMessage(),"EXIT",JOptionPane.ERROR_MESSAGE);}
+            }
+        }
+        );
+
+
+        
 }
