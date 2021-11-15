@@ -140,6 +140,28 @@ public class PasswordManager implements ActionListener {
     }
     );
 
-    
+    //Encryption password
+    PassEncryptBtn = new JButton("ENCRYPT PASSWORD");
+        GUIButtonsSetting(PassEncryptBtn);
+        PassEncryptBtn.setBounds(160, 180, 220, 70);
+        conn1.add(PassEncryptBtn);
+        PassEncryptBtn.addActionListener(e -> {
+                    if (PassEncryptBtn == e.getSource()) {
+                        try {
+                            String simplePasswd = JOptionPane.showInputDialog("Enter your Password");
+                            if (!simplePasswd.isEmpty()) {
+                                byte[] salt = passwordEncryption.getSalt();
+                                String encPass = passwordEncryption.get_SHA_1_SecurePassword(simplePasswd, salt);
+                                //txtArea adding in the panel
+                                encryptPasswdArea = new JTextArea(7, 4);
+                                textArea(encPass, encryptPasswdArea);
+                                JOptionPane.showMessageDialog(conn1, new JScrollPane(encryptPasswdArea), "Copy your Encrypted password", JOptionPane.INFORMATION_MESSAGE);
+                            } else JOptionPane.showMessageDialog(conn1, "Please enter password!");
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(conn1, ex.getMessage(), "EXIT", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+        );
 
 }
