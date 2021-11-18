@@ -6,7 +6,8 @@
 //To store the key/value pair, one can use a simple array like a data structure where keys (integers) can be used directly as an index to store values. 
 //However, in cases where the keys are large and cannot be used directly as an index, one should use hashing. 
 //In hashing, large keys are converted into small keys by using hash functions. 
-//The values are then stored in a data structure called hash table. /// Linear Probing, It may happen that the hashing technique is used to create an already used index of the array. 
+//The values are then stored in a data structure called hash table. 
+// Linear Probing, It may happen that the hashing technique is used to create an already used index of the array. 
 //In such a case, we can search for the next empty location in the array by looking into the next cell until we find an empty cell. 
 //This technique is called linear probing. 
 
